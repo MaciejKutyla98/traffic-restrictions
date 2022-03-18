@@ -1,5 +1,6 @@
 export const FetchData = () => {
-    const url = 'https://cors-anywhere.herokuapp.com/\n' +
+    const { XMLParser } = require('fast-xml-parser');
+    const url = 'https://cors-anywhere.herokuapp.com/' +
         'https://www.archiwum.gddkia.gov.pl/dane/zima_html/utrdane.xml'
     const fetchData = () => {
         fetch(url, {
@@ -10,9 +11,9 @@ export const FetchData = () => {
         })
             .then(response => response.text())
             .then(data => {
-                const parser = new DOMParser();
-                const xml = parser.parseFromString(data, "application/xml");
-                console.log(xml);
+                const parser = new XMLParser();
+                let jObj = parser.parse(data);
+                console.log(jObj)
             })
             .catch(console.error);
     }
